@@ -7,12 +7,20 @@ const PDF_OPTIONS         = {
   format: 'A2',
 };
 
-export const getInvoiceTemplate = (template) => require(`../${TEMPLATES_DIR_NAME}/${TEMPLATE_PREFIX}-${template}/${TEMPLATE_PREFIX}-${template}.html`);
+const generateCssStyle = (templateCss) => 
+  `<style>${templateCss}</style>`;
+
+export const getInvoiceHtmlTemplate = (template) => 
+  require(`../${TEMPLATES_DIR_NAME}/${TEMPLATE_PREFIX}-${template}/${TEMPLATE_PREFIX}-${template}.html`).toString();
+
+export const getInvoiceCssTemplate = (template) => 
+  require(`../${TEMPLATES_DIR_NAME}/${TEMPLATE_PREFIX}-${template}/${TEMPLATE_PREFIX}-${template}.css`).toString();
 
 export const previewInvoice = (template) => {
   try {
-    const templateHtml = getInvoiceTemplate(template);
-    return ResetCss + templateHtml;
+    const templateCss  = generateCssStyle(getInvoiceCssTemplate(template));
+    const templateHtml = getInvoiceHtmlTemplate(template);
+    return ResetCss + templateCss + templateHtml;
   } catch(err) {
     console.group('------ ERROR ------');
     console.log(err);

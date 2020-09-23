@@ -14,6 +14,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /(templates)/,
         use: ["style-loader", "css-loader"]
       },
       {
@@ -23,6 +24,10 @@ module.exports = {
       {
         test: /\.html$/i,
         loader: 'html-loader',
+      },
+      {
+        test: /(templates).*\.css$/,
+        use: ["css-loader"]
       },
     ]
   },

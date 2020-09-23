@@ -73,7 +73,6 @@ function AddInvoice() {
             }}
           >
             <option value="sparksuite">Spark Suite</option>
-            <option value="fatura">Fatura</option>
           </Select>
         </FormControl>
 
