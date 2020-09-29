@@ -19,6 +19,8 @@ function createWindow () {
     }
   })
 
+  mainWindow.setMenuBarVisibility(false)
+
   mainWindow.loadFile('index.html')
   // mainWindow.webContents.openDevTools()
 

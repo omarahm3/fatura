@@ -1,4 +1,6 @@
 import ResetCss from '../templates/reset-css.html';
+import parse from './templateParserService';
+import { showError } from './utilService';
 const pdf = window.require('html-pdf')
 
 const TEMPLATES_DIR_NAME  = 'templates';
@@ -19,23 +21,17 @@ export const getInvoiceCssTemplate = (template) =>
 export const previewInvoice = (template) => {
   try {
     const templateCss  = generateCssStyle(getInvoiceCssTemplate(template));
-    const templateHtml = getInvoiceHtmlTemplate(template);
+    const templateHtml = parse(getInvoiceHtmlTemplate(template));
     return ResetCss + templateCss + templateHtml;
   } catch(err) {
-    console.group('------ ERROR ------');
-    console.log(err);
-    console.groupEnd();
+    showError(err, 'invoiceService.previewInvoice');
   }
 }
 
-export const invoiceToHtml = (htmlInvoice, saveLocation, pdfOptions = PDF_OPTIONS, cb = null) => {
+export const invoiceToHtml = (htmlInvoice, saveLocation, cb = null, pdfOptions = PDF_OPTIONS) => {
   try {
-    pdf.create(htmlInvoice, {
-      format: 'A2',
-    }).toFile(saveLocation, cb);
+    pdf.create(htmlInvoice, pdfOptions).toFile(saveLocation, cb);
   } catch (err) {
-    console.group('------ ERROR ------');
-    console.log(err);
-    console.groupEnd();
+    showError(err, 'invoiceService.invoiceToHtml');
   }
 }

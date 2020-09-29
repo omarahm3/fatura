@@ -1,5 +1,5 @@
-import { Grid, makeStyles, Paper } from '@material-ui/core';
-import React from 'reactn';
+import { Grid, makeStyles, Paper } from "@material-ui/core";
+import React from "reactn";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
 }));
@@ -19,9 +19,7 @@ export default function Home() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            Home
-          </Paper>
+          <Paper className={classes.paper}>Home</Paper>
         </Grid>
       </Grid>
     </div>
