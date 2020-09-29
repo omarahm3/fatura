@@ -1,4 +1,5 @@
-import { FATURA_SELECTORS } from '../constants';
+import moment from 'moment';
+import { FATURA_DEFAULTS, FATURA_SELECTORS } from '../constants';
 
 const cheerio = require('cheerio');
 
@@ -73,21 +74,75 @@ const editFaturaInvoiceHeading = (htmlTemplate, opts = {}) => {
   return htmlTemplate;
 }
 
+const editFaturaInvoiceCompanyAndUserDatails = (htmlTemplate, opts = {}) => {
+  if (opts.company) {
+    const companyDetails = opts.company;
+
+    if (companyDetails.name) {
+      htmlTemplate(FATURA_SELECTORS.INVOICE_COMPANY_NAME).text(companyDetails.name);
+    }
+
+    if (companyDetails.address) {
+      htmlTemplate(FATURA_SELECTORS.INVOICE_COMPANY_ADDRESS).text(companyDetails.address);
+    }
+
+    if (companyDetails.extend) {
+      htmlTemplate(FATURA_SELECTORS.INVOICE_COMPANY_EXTEND).text(companyDetails.extend);
+    }
+  }
+
+  if (opts.user) {
+    const userDetails = opts.user;
+
+    if (userDetails.name) {
+      htmlTemplate(FATURA_SELECTORS.INVOICE_USER_NAME).text(userDetails.name);
+    }
+
+    if (userDetails.email) {
+      htmlTemplate(FATURA_SELECTORS.INVOICE_USER_EMAIL).text(userDetails.email);
+    }
+
+    if (userDetails.extend) {
+      htmlTemplate(FATURA_SELECTORS.INVOICE_USER_EXTEND).text(userDetails.extend);
+    }
+
+    if (userDetails.bank) {
+      const bankDetails = userDetails.bank;
+
+      if (bankDetails.name) {
+        htmlTemplate(FATURA_SELECTORS.INVOICE_USER_BANK_NAME).text(bankDetails.name);
+      }
+
+      if (bankDetails.swiftCode) {
+        htmlTemplate(FATURA_SELECTORS.INVOICE_USER_BANK_SWIFT_CODE).text(bankDetails.swiftCode);
+      }
+
+      if (bankDetails.accountNumber) {
+        htmlTemplate(FATURA_SELECTORS.INVOICE_USER_BANK_ACCOUNT_NUMBER).text(bankDetails.accountNumber);
+      }
+    }
+  }
+
+  return htmlTemplate;
+}
+
+const initialParsing = (htmlTemplate) => {
+  const dateToday = moment().format(FATURA_DEFAULTS.DEFAULT_DATE_FORMAT);
+  const dueDate   = moment().add(1, 'month').endOf('month').subtract(6, 'days').format(FATURA_DEFAULTS.DEFAULT_DATE_FORMAT);
+
+  
+
+  return htmlTemplate;
+}
+
+/**
+ * This will do html parsing to fill it with initial data
+ * @param {String} htmlTemplate 
+ */
 const parse = (htmlTemplate) => {
-  let  $ = cheerio.load(htmlTemplate);
-
-  editFaturaLogo($, {
-    url: 'https://mrg.sh',
-    imgUrl: 'https://www.sparksuite.com/images/logo.png'
-  });
-
-  editFaturaInvoiceHeading($, {
-    invoiceNumber: 1,
-    invoiceCreatedAt: new Date().toString(),
-    invoiceDueDate: new Date().toString(),
-  });
-
-  return $.html();
+  htmlTemplate = cheerio.load(htmlTemplate);
+  initialParsing(htmlTemplate);
+  return htmlTemplate.html();
 }
 
 export default parse;

@@ -6,29 +6,41 @@
           <tr>
             <td class="title" id="fatura__logo"></td>
             <td>
-              Invoice #<span id="fatura__invoiceHeading_number"></span><br>
-              Created: <span id="fatura__invoiceHeading_createdAt"></span><br>
-              Due: <span id="fatura__invoiceHeading_dueDate"></span>
+              <p>Invoice #<span id="fatura__invoiceHeading_number"></span></p>
+              <p>Created: <span id="fatura__invoiceHeading_createdAt"></span></p>
+              <p>Due: <span id="fatura__invoiceHeading_dueDate"></span></p>
             </td>
           </tr>
           <tr class="information">
             <td colspan="2">
               <table>
                 <tr>
-                  <td> Sparksuite, Inc.<br>12345 Sunny Road<br>Sunnyville, CA 12345 </td>
-                  <td> Acme Corp.<br>John Doe<br>john@example.com </td>
+                  <td>
+                    <p class="text-heading">Bill to: </p>
+                    <p><span id="fatura__companyDetails_name"></span></p>
+                    <p><span id="fatura__companyDetails_address"></span></p>
+                    <p><span id="fatura__companyDetails_extend"></span></p>
+                  </td>
+                  <td>
+                    <p><span id="fatura__userDetails_name"></span></p>
+                    <p><span id="fatura__userDetails_email"></span></p>
+                    <p><span id="fatura__userDetails_bankName"></span></p>
+                    <p><span id="fatura__userDetails_bankSwiftCode"></span></p>
+                    <p><span id="fatura__userDetails_bankAccountNumber"></span></p>
+                    <p><span id="fatura__userDetails_extend"></span></p>
+                  </td>
                 </tr>
               </table>
             </td>
           </tr>
-          <tr class="heading">
+          <!-- <tr class="heading">
             <td> Payment Method </td>
             <td> Check # </td>
           </tr>
           <tr class="details">
             <td> Check </td>
             <td> 1000 </td>
-          </tr>
+          </tr> -->
           <tr class="heading">
             <td> Item </td>
             <td> Price </td>
